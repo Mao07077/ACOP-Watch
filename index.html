@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#123c3a" />
+    <title>ACOP Watch | Pension Monitoring</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+      <aside class="sidebar">
+        <div class="brand-lockup">
+          <div class="brand-mark">AW</div>
+          <div>
+            <strong>ACOP Watch</strong>
+            <span>Pension monitoring</span>
+          </div>
+        </div>
+
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="nav-item active" href="#dashboard" data-page="dashboard"><span class="nav-icon">▦</span> Dashboard</a>
+          <a class="nav-item" href="#clients" data-page="clients"><span class="nav-icon">◎</span> Client list</a>
+          <a class="nav-item" href="#calendar" data-page="calendar"><span class="nav-icon">□</span> ACOP calendar</a>
+          <a class="nav-item" href="#reports" data-page="reports"><span class="nav-icon">↗</span> Reports</a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="eyebrow">Today</span>
+          <strong id="sidebarDate">Loading date...</strong>
+          <p>Notification window is open for <span id="sidebarNextMonth">next month's</span> ACOP schedules.</p>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="avatar" id="sidebarUserInitials">AW</div>
+          <div><strong id="sidebarUserName">Loading user...</strong><span id="sidebarUserRole">Loading role...</span></div>
+          <button class="icon-button" id="logoutButton" aria-label="Log out">↪</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page-view active" data-view="dashboard">
+          <header class="topbar">
+          <div>
+            <span class="eyebrow" id="dashboardDate">Loading date...</span>
+            <h1>Good morning, <em id="greetingName">there.</em></h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="notification-button" id="notifyButton" title="Enable computer notifications">
+              <span class="bell">♢</span><span>Enable notifications</span>
+            </button>
+            <button class="profile-button" id="profileButton"><span class="avatar small" id="profileInitials">AW</span><span id="profileName">Account</span><span>⌄</span></button>
+          </div>
+          </header>
+
+          <section class="alert-banner" aria-label="Notification summary">
+          <div class="alert-symbol">!</div>
+          <div><strong id="alertTitle">ACOP notification summary</strong><span id="alertSummary">Checking due and overdue records...</span></div>
+          <button class="text-button" id="viewDueButton">View due clients <span>→</span></button>
+          </section>
+
+          <section class="stats-grid" aria-label="ACOP summary">
+          <article class="stat-card stat-card-link" id="totalClientsCard" role="button" tabindex="0" aria-label="View all clients"><div class="stat-label">Total clients</div><strong id="totalClientsCount">07</strong><span>Active client records</span><div class="total-icon">◎</div></article>
+          <article class="stat-card primary"><div class="stat-label">Due this month <span class="stat-dot"></span></div><strong id="dueCount">04</strong><span>Current month's ACOP/APIR window</span><div class="sparkline">╱╲╱╲╱╲╱</div></article>
+          <article class="stat-card"><div class="stat-label">Completed this year</div><strong id="completedCount">00</strong><span>Clients who completed ACOP/APIR</span><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="stat-card stat-card-link" id="followUpCard" role="button" tabindex="0" aria-label="View clients who need ACOP"><div class="stat-label">Need to ACOP</div><strong id="overdueCount">01</strong><span class="danger-text">Next month's ACOP/APIR schedule</span><div class="overdue-line">──────</div></article>
+          </section>
+
+          <section class="workspace-panel dashboard-summary">
+            <div class="panel-heading">
+              <div><span class="eyebrow">At a glance</span><h2>ACOP monitoring summary</h2></div>
+              <a class="text-button" href="#clients" data-page="clients">View all clients <span>→</span></a>
+            </div>
+            <p class="dashboard-summary-copy">There are <strong id="dashboardClientCount">07</strong> active client records. Open the client list to view every client, search records, and manage ACOP status.</p>
+          </section>
+        </section>
+
+        <section class="page-view" data-view="clients">
+          <header class="page-heading"><div><span class="eyebrow">Records</span><h1>Client list</h1><p>View all client records, ACOP schedules, contacts, and status.</p></div></header>
+          <section class="workspace-panel" id="clients">
+          <div class="panel-heading">
+            <div><span class="eyebrow">Monitoring list</span><h2>ACOP action queue</h2></div>
+            <button class="primary-button" id="addClientButton"><span>＋</span> Add client</button>
+          </div>
+          <div class="toolbar">
+            <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search client, SSS number..." /></label>
+            <label class="select-box">Pension type
+              <select id="pensionTypeFilter">
+                <option value="all">All pension types</option>
+                <option value="GSIS">GSIS</option>
+                <option value="SD">SD</option>
+                <option value="ST">ST</option>
+                <option value="RT">RT</option>
+                <option value="SP">SP</option>
+              </select>
+            </label>
+            <label class="age-filter"><input id="age80Filter" type="checkbox" /> Age 80+</label>
+            <div class="filter-group" role="group" aria-label="Filter by status">
+              <button class="filter active" data-filter="all">All <b id="allCount">07</b></button>
+              <button class="filter" data-filter="for-acop">ACOP / APIR <b id="forAcopCount">04</b></button>
+              <button class="filter" data-filter="approved">Done <b id="doneCount">00</b></button>
+              <button class="filter" data-filter="overdue">Overdue <b id="filterOverdueCount">01</b></button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Client</th><th>Pension</th><th>ACOP schedule</th><th>Contact</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="clientTable"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" hidden>No clients match this view.</div>
+          </div>
+          <div class="table-footer"><span id="resultCount">Loading clients...</span><span class="privacy-note">● Data is stored securely in MongoDB</span></div>
+          <nav class="pagination" id="pagination" aria-label="Client list pages"></nav>
+          </section>
+        </section>
+
+        <section class="page-view" data-view="calendar">
+          <header class="page-heading"><div><span class="eyebrow">Planning</span><h1>ACOP calendar</h1><p>See scheduled ACOP dates and upcoming notification windows.</p></div></header>
+          <article class="side-panel calendar-page-panel" id="calendar">
+            <div class="panel-heading compact"><div><span class="eyebrow">Planning and schedules</span><h2>ACOP/APIR calendar</h2></div><span class="calendar-live-label">Live from MongoDB</span></div>
+            <div class="calendar-month"><button type="button" id="previousCalendarMonth" aria-label="Previous month">‹</button><strong id="calendarMonthTitle">Loading month...</strong><button type="button" id="nextCalendarMonth" aria-label="Next month">›</button></div>
+            <div class="calendar-grid calendar-weekdays" aria-hidden="true"></div>
+            <div class="calendar-grid" id="calendarGrid" aria-label="Monthly ACOP and APIR schedule"></div>
+          </article>
+        </section>
+
+        <section class="page-view" data-view="reports">
+          <header class="page-heading"><div><span class="eyebrow">Activity</span><h1>Reports</h1><p>Review recent activity and ACOP workflow progress.</p></div><div class="topbar-actions"><label class="primary-button" for="excelImportInput"><span>↑</span> Upload Excel</label><input id="excelImportInput" type="file" accept=".xlsx,.xls" hidden /><button class="primary-button" id="exportReportButton"><span>↓</span> Export report</button></div></header>
+          <p class="privacy-note">Uploaded records are automatically assigned to the branch username of the account that uploads the file.</p>
+          <section class="reports-grid">
+            <article class="side-panel report-card"><span class="eyebrow">Workflow status</span><h2>Current progress</h2><div class="report-metric"><strong id="reportApprovalCount">02</strong><span>awaiting approval</span></div><div class="report-metric"><strong id="reportOverdueCount">01</strong><span>overdue follow-up</span></div></article>
+            <article class="side-panel"><div class="panel-heading compact"><div><span class="eyebrow">Activity</span><h2>Recent updates</h2></div><button class="icon-button" aria-label="More report options">•••</button></div><div class="activity-list"><div><span class="activity-icon teal">✓</span><p><strong>Rosa Villanueva</strong> marked ACOP as done.<small>Today, 9:42 AM</small></p></div><div><span class="activity-icon yellow">!</span><p><strong>2 clients</strong> are waiting for approval.<small>Yesterday, 4:18 PM</small></p></div><div><span class="activity-icon blue">↗</span><p>November reminder list was generated.<small>Oct 01, 8:00 AM</small></p></div></div></article>
+          </section>
+        </section>
+      </main>
+    </div>
+    <dialog id="clientDialog">
+      <form id="clientForm" method="dialog">
+        <div class="panel-heading compact"><div><span class="eyebrow" id="clientDialogEyebrow">New record</span><h2 id="clientDialogTitle">Add client</h2></div><button type="button" class="icon-button" id="closeClientDialog" aria-label="Close">×</button></div>
+        <div class="client-form-grid">
+          <label>Full name<input name="name" required maxlength="120" /></label>
+          <label>Pension type<input name="type" required maxlength="30" placeholder="SSS-SD" /></label>
+          <label>ACOP reference<input name="ref" required maxlength="80" value="ACOP record" /></label>
+          <label>Birthday<input name="date" type="date" required /></label>
+          <label>Member birthday (SD)<input name="memberBirthday" type="date" /></label>
+          <label>Contact<input name="contact" required maxlength="40" /></label>
+          <label>SS/GSIS number<input name="sub" required maxlength="40" /></label>
+        </div>
+        <div class="dialog-actions"><button type="button" class="secondary-button" id="cancelClientDialog">Cancel</button><button class="primary-button" id="saveClientButton" type="submit">Save client</button></div>
+      </form>
+    </dialog>
+    <dialog id="detailsDialog">
+      <div class="panel-heading compact"><div><span class="eyebrow">Client record</span><h2 id="detailsTitle">Details</h2></div><button type="button" class="icon-button" id="closeDetailsDialog" aria-label="Close">×</button></div>
+      <div class="details-grid" id="detailsGrid"></div>
+      <div class="dialog-actions"><button type="button" class="secondary-button" id="closeDetailsButton">Close</button></div>
+    </dialog>
+    <dialog id="calendarDayDialog" class="calendar-day-dialog">
+      <div class="panel-heading compact"><div><span class="eyebrow">Daily schedule</span><h2 id="calendarDayDialogTitle">Scheduled clients</h2></div><button type="button" class="icon-button" id="closeCalendarDayDialog" aria-label="Close">×</button></div>
+      <p class="calendar-dialog-summary" id="calendarDayDialogSummary"></p>
+      <div class="calendar-dialog-items" id="calendarDayDialogItems"></div>
+      <div class="dialog-actions"><button type="button" class="secondary-button" id="closeCalendarDayDialogButton">Close</button></div>
+    </dialog>
+    <dialog id="proofDialog" class="proof-dialog">
+      <form id="proofForm">
+        <div class="panel-heading compact"><div><span class="eyebrow">ACOP completion</span><h2>Submit for approval</h2></div><button type="button" class="icon-button" id="closeProofDialog" aria-label="Close">×</button></div>
+        <p class="proof-dialog-copy">Confirm that <strong id="proofClientName"></strong> has completed ACOP/APIR, then attach the proof image link.</p>
+        <label class="proof-url-label" for="proofUrl">Proof image link <span>Required</span><input id="proofUrl" name="proofUrl" type="url" required placeholder="https://i.imgur.com/6O1zmzh.png" autocomplete="url" /></label>
+        <label class="proof-confirm"><input id="proofConfirmation" type="checkbox" required /> <span>I confirm that this client completed ACOP/APIR.</span></label>
+        <p class="proof-error" id="proofError" role="alert" hidden></p>
+        <div class="dialog-actions"><button type="button" class="secondary-button" id="cancelProofDialog">Cancel</button><button class="primary-button" type="submit">Submit for approval</button></div>
+      </form>
+    </dialog>
+    <dialog id="confirmDialog" class="proof-dialog">
+      <form id="confirmForm">
+        <div class="panel-heading compact"><div><span class="eyebrow">Please confirm</span><h2 id="confirmTitle">Archive client</h2></div><button type="button" class="icon-button" id="closeConfirmDialog" aria-label="Close">×</button></div>
+        <p class="proof-dialog-copy" id="confirmMessage"></p>
+        <div class="dialog-actions"><button type="button" class="secondary-button" id="cancelConfirmDialog">Cancel</button><button class="primary-button" type="submit">Continue</button></div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

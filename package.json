@@ -1,0 +1,16 @@
+{
+  "name": "acop-watch",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ACOP Watch client monitoring app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mongodb": "^6.12.0",
+    "web-push": "^3.6.7",
+    "xlsx": "^0.18.5"
+  }
+}
